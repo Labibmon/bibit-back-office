@@ -1,6 +1,7 @@
 import React from 'react';
 import '../css/login.css';
-import auth from './auth';
+import auth from './Auth';
+
 import logoGoogle from '../../images/googlelogo.png';
 
 // import bibitIcon from '../../images/bibit-robo-white.ico';
@@ -9,7 +10,7 @@ export const Login = props => {
         return(
             <div>
                 <svg className="backgroundLogin" viewBox="0 0 1440 627" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0 0H1440V466C1440 466 1102.5 626.5 717 626.5C331.5 626.5 0 466 0 466V0Z" fill="#00ab6b"/>
+                    <path d="M0 0H1440V466C1440 466 1102.5 626.5 717 626.5C331.5 626.5 0 466 0 466V0Z" fill="#333"/>
                 </svg>
                 <div className="boxLogin">
                     <center>
