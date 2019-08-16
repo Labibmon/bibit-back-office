@@ -1,0 +1,38 @@
+.header{
+    position: absolute;
+    left: 0px;
+    height: 55px;
+    width: 100%;
+    top: 0px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.photoProfile{
+    height: 50px;
+    width: 50px;
+    border-radius: 37px;
+}
+
+.ketProfile{
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.nameProfile{
+    font-size: 10px;
+    margin-bottom: -5px;
+}
+
+.emailProfile{
+    margin-top: -1px;
+    color: #000000;
+}
+
+.logoutBtn{
+    margin-right: 15px;
+    color: #4e555b;
+    float: right;
+    background-color: #f5f5f5;
+    border-color: #d0d0d0; 
+    font-size: 15px;
+}

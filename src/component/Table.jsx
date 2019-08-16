@@ -2,8 +2,9 @@ import React from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+import filterFactory from 'react-bootstrap-table2-filter';
 // import ReactHTMLTableToExcel from 'react-html-table-to-excel';
-import Loader from 'react-loader-spinner'
+import Loader from 'react-loader-spinner';
 // import { CSVLink, CSVDownload } from "react-csv";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -22,14 +23,41 @@ class Table extends React.Component{
   indication = () => {
       return (
         <div className='loader'>
-          <Loader
+          {/* <Loader
             type="ThreeDots"
             color="#17a2b8"
             height="50"	
             width="50"
-          />
+          /> */}
+          Table is Empty
         </div>   
       );
+  }
+
+  handleTableChange = (type, { filters }) => {
+    setTimeout(() => {
+      const products = this.props.dataColumns;
+      const Comparator = '';
+      const result = products.filter((row) => {
+        let valid = true;
+        for (const dataField in filters) {
+          const { filterVal, filterType, comparator } = filters[dataField];
+
+          if (filterType === 'TEXT') {
+            if (comparator === Comparator.LIKE) {
+              valid = row[dataField].toString().indexOf(filterVal) > -1;
+            } else {
+              valid = row[dataField] === filterVal;
+            }
+          }
+          if (!valid) break;
+        }
+        return valid;
+      });
+      this.setState(() => ({
+        data: result
+      }));
+    }, 2000);
   }
   
   notifyExport = () => toast.success(`${this.props.nameMenu}.csv Exported`, {
@@ -37,10 +65,6 @@ class Table extends React.Component{
   });
 
   render(){
-    const defaultSorted = [{
-      dataField: 'username',
-      // order: 'desc'
-    }];
     const MyExportCSV = (props) => {
       const handleClick = () => {
         setTimeout(() => props.onExport(), 500);
@@ -49,14 +73,6 @@ class Table extends React.Component{
       return (
         <div className='exportCsvDiv'>
           <button className="buttonadd btn btn-secondary btn-sm exportCsv" onClick={ handleClick }>Export CSV</button>
-          {/* <ReactHTMLTableToExcel
-              id="test-table-xls-button"
-              className="buttonadd btn btn-secondary btn-sm downloadXls"
-              table="table-to-xls"
-              filename={this.props.nameMenu === 'Member' ? 'Member' : 'Change Log'}
-              sheet={this.props.nameMenu === 'Member' ? 'Member' : 'Change Log'}
-              buttonText="Download as XLS"
-               */}
         </div>
       );
     };
@@ -123,6 +139,11 @@ class Table extends React.Component{
               separator: '|',
               // ignoreHeader: true,
               noAutoBOM: false
+            } : this.props.nameMenu === 'Investor' ? {
+              fileName: 'Investor.csv',
+              separator: '|',
+              // ignoreHeader: true,
+              noAutoBOM: false
             } : {
               fileName: 'Change Log.csv',
               separator: '|',
@@ -133,6 +154,7 @@ class Table extends React.Component{
             {
                 props => (
                   <div>
+                    {this.props.searchField ? 
                     <div className='searchfield'>
                       <div className='searchbutton'> 
                         <i className="fa fa-search searchicon"/>
@@ -141,20 +163,14 @@ class Table extends React.Component{
                         <SearchBar
                           { ...props.searchProps }
                           className="inputsearch"
-                          // delay={ 3000 }
                           placeholder=" "
                           />
                       </div>
-                      <MyExportCSV { ...props.csvProps } />
-                      {/* <CSVLink
-                        data={this.props.dataColumns(arrayOfLiteralObjects)}
-                        headers={this.props.headerCSV}
-                        filename={"my-file.csv"}
-                        className="btn btn-primary"
-                        target="_blank"
-                      >
-                        Download me
-                      </CSVLink> */}
+                      { this.props.role !== 3 ?
+                        <MyExportCSV { ...props.csvProps } />
+                        :
+                        ''
+                      }
                       <ToastContainer
                         position="top-right"
                         autoClose={4000}
@@ -165,17 +181,22 @@ class Table extends React.Component{
                         draggable
                         pauseOnHover
                         />
-                      {/* <a className='resetSearch' onClick="">reset</a> */}
                   </div>
+                    : <div></div>}
+
                     <BootstrapTable
                         id="table-to-xls"
                         striped
                         hover
                         bordered={false}
                         noDataIndication={this.indication}
+                        filter={ filterFactory() }
                         { ...props.baseProps }
-                        pagination={paginationFactory(options)}
-                        defaultSorted={ defaultSorted } 
+                        pagination={this.props.dataColumns.length >10 ? paginationFactory(options) : false}
+                        selectRow={ this.props.selectRow }
+                        defaultSortDirection="asc"
+                        // defaultSorted={ defaultSorted } 
+                        onTableChange={ this.handleTableChange }
                     />
                 </div>
                 )

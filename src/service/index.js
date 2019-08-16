@@ -54,7 +54,7 @@ const API ={
     getDataApi,
     postDataApi,
     deleteDataApi,
-    editDataApi
+    editDataApi,
 }
 
 export default API;

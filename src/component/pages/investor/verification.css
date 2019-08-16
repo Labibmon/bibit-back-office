@@ -1,0 +1,38 @@
+.col-6{
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.dataContainer{
+    padding: 1%;
+    margin: 3%;
+}
+
+.rowNew{
+    margin-left: 1%;
+    margin-top: 2%;
+}
+
+a.nav-link{
+    cursor: pointer;
+    background-color: #f2f2f2;
+    font-size: 14px;
+
+}
+
+.tab-pane.active{
+    border: 1px solid #dee2e6;
+    padding: 3%;
+}
+
+
+.FreeScrollbar-horizontal-track {
+    display: none !important;
+}
+
+.nav-tabs {
+    border-bottom: none !important;
+}
+
+.pictureContainer{
+    height: 20%;
+}

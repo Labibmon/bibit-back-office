@@ -16,6 +16,7 @@
     max-width: 90%;
     margin-top: 30px;
     display: block;
+    padding: 22px;
 }
 
 #tooltip-top > .tooltip-inner {
@@ -30,6 +31,14 @@
 
 .btnEdit{
     border-radius: 6px 0 0px 6px;
+}
+
+.btnView{
+    border-radius: 6px;
+}
+
+.btnViewAdmin{
+    border-radius: 0px;
 }
 
 .editorbox{

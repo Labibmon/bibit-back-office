@@ -4,49 +4,311 @@
       "id": 1558459181030,
       "username": "Irsyad Nurilhaq",
       "email": "irsyadnurilhaq@gmail.com",
-      "phone": "0813330292992"
+      "phone": "0813330292992",
+      "status": {
+        "name": "Accepted",
+        "requested": ""
+      },
+      "role": 2,
+      "dates": "2019-05-10T17:00:00.000Z",
+      "create": "labibmon@gmail.com",
+      "dates_update": "2019-07-01T11:34:48.185Z",
+      "updated": "labibnaufal141197@gmail.com"
     },
     {
-      "id": 1558459204987,
-      "username": "Andritany",
-      "email": "andri@gmail.com",
-      "phone": "0828888388827"
+      "id": 1558459181040,
+      "username": "Helmi",
+      "email": "helmi.alhakim@gmail.com",
+      "phone": "0813330292992",
+      "status": {
+        "name": "Default",
+        "requested": ""
+      },
+      "role": 3,
+      "dates": "2019-05-10T17:00:00.000Z",
+      "create": "labibmon@gmail.com",
+      "dates_update": "2019-07-01T11:34:48.185Z",
+      "updated": "helmi.alhakim@gmail.com"
+    },
+    {
+      "id": 1558459181031,
+      "username": "Ahmad Maulana",
+      "email": "namaaku@ahmdmau.com",
+      "phone": "0813330292992",
+      "status": {
+        "name": "Default",
+        "requested": ""
+      },
+      "role": 3
     },
     {
       "id": 1558459254249,
       "username": "Farel Al-Ghiffary",
       "email": "farelcalonpresiden@gmail.com",
-      "phone": "0888992888277"
+      "phone": "0888992888277",
+      "status": {
+        "name": "Default",
+        "requested": ""
+      },
+      "role": 3
     },
     {
       "id": 1558459300003,
       "username": "Danial Fahadz",
       "email": "danialganteng@gmail.com",
-      "phone": "0822667377827"
+      "phone": "0822667377827",
+      "status": {
+        "name": "Default",
+        "requested": ""
+      },
+      "role": 3
     },
     {
       "id": 1558459372433,
       "username": "Fachreiza",
       "email": "uwauwa@gmail.com",
-      "phone": "0877663661122"
+      "phone": "0877663661122",
+      "status": {
+        "name": "Default",
+        "requested": ""
+      },
+      "role": 3
     },
     {
       "id": 1558459470762,
       "username": "Kris Herdianto",
       "email": "krisismoneter@gmail.com",
-      "phone": "0887755432234"
-    },
-    {
-      "id": 1558459526286,
-      "username": "asdasd",
-      "email": "sadasd@gmail.com",
-      "phone": "0888774543453"
+      "phone": "0887755432234",
+      "status": {
+        "name": "Default",
+        "requested": ""
+      },
+      "role": 3
     },
     {
       "id": 1558459578845,
       "username": "Alvian Adi Pradana",
       "email": "alvian@gmail.com",
-      "phone": "0888773566282"
+      "phone": "0888773566282",
+      "status": {
+        "name": "Default",
+        "requested": ""
+      },
+      "role": 3
+    },
+    {
+      "id": 1559845131893,
+      "username": "Labib",
+      "email": "labibmon@gmail.com",
+      "phone": "081585737170",
+      "status": {
+        "name": "Accepted",
+        "requested": 3,
+        "respondent": "labibnaufal141197@gmail.com",
+        "dates_reponse": "2019-07-07T13:48:56.836Z",
+        "dates_response": "2019-07-08T03:40:38.730Z"
+      },
+      "role": 2,
+      "dates_request": "2019-08-08T17:32:57.343Z",
+      "name": "Requested",
+      "show_announcement": false,
+      "camouflage": true
+    },
+    {
+      "id": 1561105508078,
+      "username": "andri",
+      "email": "rfkyandr7@gmail.com",
+      "phone": "089898989898",
+      "status": {
+        "name": "Default",
+        "requested": ""
+      },
+      "role": 3
+    },
+    {
+      "id": 1561122854960,
+      "username": "Anggi",
+      "email": "anggirizkyas9@gmail.com",
+      "phone": "213123213213",
+      "status": {
+        "name": "Rejected",
+        "requested": 1,
+        "respondent": "labibmon@gmail.com",
+        "dates_reponse": "2019-07-07T11:56:55.259Z"
+      },
+      "role": 2,
+      "show_announcement": true
+    },
+    {
+      "id": 1561122854956,
+      "username": "Labib Naufal Ansi",
+      "email": "labibnaufal141197@gmail.com",
+      "phone": "0813333212333",
+      "status": {
+        "name": "Accepted",
+        "requested": "",
+        "respondent": "labibmon@gmail.com",
+        "dates_response": "2019-08-09T07:11:36.525Z",
+        "dates_reponse": "2019-08-01T08:37:43.296Z"
+      },
+      "role": 2,
+      "dates_request": "2019-08-09T07:11:01.841Z",
+      "name": "Requested",
+      "show_announcement": true,
+      "dates_update": "2019-08-09T07:13:45.200Z",
+      "updated": "user ( labibnaufal141197@gmail.com )"
+    }
+  ],
+  "activity": [
+    {
+      "id": 1562429935118,
+      "desc": "Requesting labibmon@gmail.com to be a Author",
+      "date": "2019-07-06T16:18:55.118Z"
+    },
+    {
+      "id": 1562500615259,
+      "desc": "Requesting anggirizkyas9@gmail.com to be a admin rejected by labibmon@gmail.com(admin)",
+      "date": "2019-07-07T11:56:55.259Z"
+    },
+    {
+      "id": 1562502356306,
+      "desc": "irsyadnurilhaq@gmail.com to be a author changed by labibmon@gmail.com(admin)",
+      "date": "2019-07-07T12:25:56.306Z"
+    },
+    {
+      "id": 1562506107062,
+      "desc": "Added new member asdasd@gmail.com by labibmon@gmail.com(admin)",
+      "date": "2019-07-07T13:28:27.062Z"
+    },
+    {
+      "id": 1562507070627,
+      "desc": "Requested labibmon@gmail.com to be a Viewer",
+      "date": "2019-07-07T13:44:30.627Z"
+    },
+    {
+      "id": 1562507336836,
+      "desc": "Rejected for requesting labibmon@gmail.com to be a viewer by labibmon@gmail.com(admin)",
+      "date": "2019-07-07T13:48:56.836Z"
+    },
+    {
+      "id": 1562556298274,
+      "desc": "Accepted for requesting labibnaufal141197@gmail.com to be a author by labibmon@gmail.com(admin)",
+      "date": "2019-07-08T03:24:58.274Z"
+    },
+    {
+      "id": 1562556793726,
+      "desc": "Requested labibnaufal141197@gmail.com to be a Admin",
+      "date": "2019-07-08T03:33:13.726Z"
+    },
+    {
+      "id": 1562556818270,
+      "desc": "Accepted for requesting labibnaufal141197@gmail.com to be a author by labibmon@gmail.com(admin)",
+      "date": "2019-07-08T03:33:38.270Z"
+    },
+    {
+      "id": 1562557213447,
+      "desc": "Requested labibmon@gmail.com to be a Viewer",
+      "date": "2019-07-08T03:40:13.447Z"
+    },
+    {
+      "id": 1562557238730,
+      "desc": "Accepted for requesting labibmon@gmail.com to be a author by labibnaufal141197@gmail.com(admin)",
+      "date": "2019-07-08T03:40:38.730Z"
+    },
+    {
+      "id": 1562557855142,
+      "desc": "Requested labibmon@gmail.com to be a Admin",
+      "date": "2019-07-08T03:50:55.142Z"
+    },
+    {
+      "id": 1562557895105,
+      "desc": "labibnaufal141197@gmail.com to be a author changed by labibnaufal141197@gmail.com(admin)",
+      "date": "2019-07-08T03:51:35.105Z"
+    },
+    {
+      "id": 1562875478826,
+      "desc": "Requested labibnaufal141197@gmail.com to be a Admin",
+      "date": "2019-07-11T20:04:38.826Z"
+    },
+    {
+      "id": 1562875503297,
+      "desc": "Rejected for requesting labibnaufal141197@gmail.com to be a admin by labibmon@gmail.com(admin)",
+      "date": "2019-07-11T20:05:03.297Z"
+    },
+    {
+      "id": 1563893402037,
+      "desc": "Requested labibnaufal141197@gmail.com to be a Admin",
+      "date": "2019-07-23T14:50:02.037Z"
+    },
+    {
+      "id": 1564648663296,
+      "desc": "Rejected for requesting labibnaufal141197@gmail.com to be a admin by labibmon@gmail.com(admin)",
+      "date": "2019-08-01T08:37:43.296Z"
+    },
+    {
+      "id": 1565334625682,
+      "desc": "irsyadnurilhaq@gmail.com to be a author changed by labibmon@gmail.com(admin)",
+      "date": "2019-08-09T07:10:25.682Z"
+    },
+    {
+      "id": 1565334664358,
+      "desc": "Requested labibnaufal141197@gmail.com to be a Admin",
+      "date": "2019-08-09T07:11:04.358Z"
+    },
+    {
+      "id": 1565334696525,
+      "desc": "Accepted for requesting labibnaufal141197@gmail.com to be a author by labibmon@gmail.com(admin)",
+      "date": "2019-08-09T07:11:36.525Z"
+    },
+    {
+      "id": 1565334782458,
+      "desc": "labibnaufal141197@gmail.com to be a author changed by labibmon@gmail.com(admin)",
+      "date": "2019-08-09T07:13:02.458Z"
+    }
+  ],
+  "investor": [
+    {
+      "id": "3XYT45O",
+      "name": "Mochamad Labib Naufal Ansi",
+      "email": "labibmon@gmail.com",
+      "phone": "+6281585737170",
+      "date_register": "2019-07-11T20:05:03.297Z",
+      "study": "College",
+      "income": "A",
+      "source_income": "Gaji",
+      "bank_name": "BANK MANDIRI",
+      "no_rekening": "111111111111",
+      "ktp": {
+        "id_number": "3525161411970002",
+        "full_name": "Mochamad Labib Naufal A",
+        "address": "Tuban",
+        "place_birth": "Tuban",
+        "date_birth": "1997-11-13T17:00:00.000Z",
+        "gender": "Male",
+        "religion": "Islam",
+        "martial_status": "Single",
+        "occupation": "Pelajar"
+      },
+      "edd": "true",
+      "signature": "false",
+      "status": true,
+      "status_ktp": true
+    },
+    {
+      "id": "5XY3321",
+      "name": "Farel Al-Ghiffary",
+      "email": "farel@gmail.com",
+      "phone": "+6281232737122",
+      "date_register": "2019-07-11T20:05:03.297Z",
+      "study": "junior",
+      "income": "A",
+      "source_income": "Orang Tua",
+      "bank_name": "BANK BRI",
+      "no_rekening": "2222222222222",
+      "ktp": "",
+      "edd": "",
+      "signature": "",
+      "status": false
     }
   ],
   "changelog": [
@@ -81,16 +343,10 @@
       "dates": "2019-05-02T17:00:00.000Z"
     },
     {
-      "id": 1558470158293,
-      "type": "back",
-      "desc": "<p>Pagination on all table</p>\n",
-      "dates": "2019-05-08T17:00:00.000Z"
-    },
-    {
-      "id": 1558470203293,
-      "type": "back",
-      "desc": "<p>Seacrh function on table</p>\n",
-      "dates": "2019-05-16T17:00:00.000Z"
+      "id": 1565334540950,
+      "type": "front",
+      "desc": "<p>Sidang jumat</p>\n",
+      "dates": "2019-08-02T17:00:00.000Z"
     }
   ]
 }

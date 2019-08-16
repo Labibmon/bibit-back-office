@@ -1,6 +1,9 @@
+/* eslint react/no-direct-mutation-state:0*/
+/* eslint react/jsx-no-duplicate-props:0 */
+
 import React from "react";
-import API from '../../service';
-import Table from '../../component/Table';
+import API from '../../../service';
+import Table from '../../Table';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem} from 'reactstrap';
 import { EditorState, convertToRaw, ContentState, convertFromHTML } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
@@ -9,18 +12,20 @@ import draftToHtml from 'draftjs-to-html';
 import moment from 'moment-timezone';
 import id from "date-fns/locale/id"; 
 import { ToastContainer, toast } from 'react-toastify';
+import { Loading } from '../../core/Util';
 import 'react-toastify/dist/ReactToastify.css';
-import '../css/content.css';
+import './changelog.css';
 import "react-datepicker/dist/react-datepicker.css";
-import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import "../../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 registerLocale("id", id);
 const pathAPI = 'changelog';
 const ParsedDateInd = date => date ? moment.utc(date).lang('id').tz('Asia/Jakarta').format('DD MMM YYYY') : '';
 class ChangeLog extends React.Component {
-    constructor(){
+    constructor(props){
         super();
         this.state = {
+            loadingLog: true,
             lenghtData: '',
             dataColumns: [],
             modal: false,
@@ -88,13 +93,21 @@ class ChangeLog extends React.Component {
                 style: { fontSize:'14px' },
                 formatter: this.buttonAction,
                 headerStyle: (colum, colIndex) => ({ width: '10%', textAlign: 'center' }),
+                hidden: props.user.role
               }],
         }
     }
     
     componentDidMount() {
-      setTimeout(() => this.getData(), 1000);
+      this.getData();
+      setTimeout(() => this.loading(), 1500);
     }
+
+    loading = () => {
+      this.setState({
+          loadingLog: false
+      })
+  }
 
     getData = () => {
       API.getDataApi(pathAPI).then( result => {
@@ -124,7 +137,6 @@ class ChangeLog extends React.Component {
       }
 
     toggle = (title, vType) => {
-      console.log(this.state.typeLog)
         if (title === 'add') {
           this.setState(prevState => ({
             modal: !prevState.modal,
@@ -215,22 +227,22 @@ class ChangeLog extends React.Component {
       }
     }
 
-    notifyAdd = () => toast.success("Data Berhasil Ditambahkan", {
+    notifyAdd = () => toast.success("Data Successfully Added", {
       className:"toastSucces"
     });
-    notifyAddError = () => toast.error("Data Gagal Ditambahkan", {
+    notifyAddError = () => toast.error("Data Failed Added", {
       className:"toastError"
     });
-    notifyEditSuccess = () => toast.success("Data Berhasil Di Ubah", {
+    notifyEditSuccess = () => toast.success("Data is edited", {
       className:"toastSucces"
     });
-    notifyEditError = () => toast.error("Data Gagal Di Ubah", {
+    notifyEditError = () => toast.error("Data failed to edited", {
       className:"toastError"
     });
-    notifyDelete = () => toast.success("Data Berhasil Dihapus", {
+    notifyDelete = () => toast.success("Data deleted", {
       className:"toastSucces"
     });
-    notifyDeleteError = () => toast.error("Data Gagal Dihapus", {
+    notifyDeleteError = () => toast.error("Data failed to delete", {
       className:"toastError"
     });
 
@@ -272,12 +284,6 @@ class ChangeLog extends React.Component {
           typeLog: ''
         })
       }
-      // if(this.state.dropdownOpen === true){
-      //   this.setState({
-      //     inputType: true,
-      //   })
-      // }
-      console.log('DATA', this.state.formData.type)
     }
     
     onEditorStateChange = (editorState) => {
@@ -287,14 +293,13 @@ class ChangeLog extends React.Component {
       };
 
     changeTypeLog = (e) => {
-      console.log('Clicked')
       this.setState({
         inputType: true,
       })
       const { id } = e.target
       if(id === 'front'){
-        this.state.formData.type = 'front'
-        this.state.logType = 'front'
+        this.state.formData.type = 'front';
+        this.state.logType = 'front';
       } else {
         this.state.logType = 'back'
         this.state.formData.type = 'back'
@@ -353,9 +358,6 @@ class ChangeLog extends React.Component {
       }
     }
 
-    handleOnBlurType = (v) =>{
-      console.log('BLUR')
-    }
     handleClickType = () => {
       if(this.state.typeLog === 'first'){
         this.setState({
@@ -370,26 +372,36 @@ class ChangeLog extends React.Component {
     render(){
 
         const { lenghtData, editorState } = this.state;
+        const { user } = this.props;
         const data = this.state.dataColumns;
         const columns = this.state.headerTableChangeLog;
+
+        if(this.state.loadingLog){
+          return (<Loading isLoading={this.state.loadingLog} />)
+        }
 
         return(
             <div>
                 <div className='judul'><h3>Change Log</h3></div>   
                 <div className='container'>
-                    <div style={{ margin: '10px' }}>
-                        <span />
+                    <div>
                         <header className="d-flex justify-content-between flex-wrap">
                             <h5 className="lh-ms">
                             {lenghtData}  Total Change Log
                             </h5>
-                            <Button color="info" size="sm" onClick={() => this.toggle('add')} className='buttonadd' >Add New Log</Button>   
+                            {user.role === 1 ?
+                              <Button color="info" size="sm" onClick={() => this.toggle('add')} className='buttonadd' >Add New Log</Button>   
+                            :
+                              ""
+                            }
                         </header>
                         {/* <Searchfield /> */}
                         <Table 
                             headerColumns={columns} 
                             dataColumns={data}
                             nameMenu={this.state.nameMenu}
+                            searchField= "true"
+                            role={this.props.user.role}
                             />
                         <span />
                     </div>
@@ -465,7 +477,7 @@ class ChangeLog extends React.Component {
                       <ToastContainer
                         position="top-right"
                         autoClose={4000}
-                        // hideProgressBar
+                        hideProgressBar
                         newestOnTop={false}
                         closeOnClick
                         rtl={false}

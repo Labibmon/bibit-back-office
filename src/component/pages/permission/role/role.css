@@ -1,0 +1,53 @@
+.container{
+    background-color: white;
+    max-width: 90%;
+    margin-top: 30px;
+    display: block;
+    padding: 22px;
+}
+
+.judul{
+    padding-left: 57px;
+    margin-top: 40px;
+}
+
+.cardGroup{
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.cardBody{
+    margin: 3%;
+    border-radius: .25rem !important;
+}
+
+.text-muted{
+    text-align: right !important;
+}
+
+button.dropdown-toggle.btn.btn-secondary, button.dropdown-toggle.btn.btn-secondary:active{
+   color: black;
+   border: none;
+   background-color: #fff;
+}
+
+button.dropdown-item{
+    cursor: pointer;
+    position: relative;
+}
+
+button.dropdown-item:hover{
+    background-color: whitesmoke;
+}
+
+h5.list-group-item-heading {
+    font-size: 15px;
+    margin-bottom: 3px;
+    padding: 0px 5px;
+}
+
+
+p.list-group-item-text {
+    padding-left: 20px;
+    margin-bottom: 3px !important;
+}

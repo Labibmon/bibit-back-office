@@ -26,24 +26,25 @@
 }
 
 .btnLogin{
-    background: #FFFFFF;
+    background: #00ab6b;
     border: 1px solid #D7D7DE;
     box-sizing: border-box;
     box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
-    width: 70%;
+    width: 50%;
     height: auto;
-    text-align: left;
+    /* text-align: left; */
     padding: 5px;
-    color: grey;
+    color: #fff;
 
 }
 
 .btnLogin:hover{
+    cursor: pointer;
     border: 1px solid #D7D7DE;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
-    width: 70%;
+    width: 60%;
 }
 
 .googleLogo{

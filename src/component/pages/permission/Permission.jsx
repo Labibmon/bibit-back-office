@@ -1,23 +1,32 @@
-import React from 'react';
-import '../css/content.css';
-import API from '../../service';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, Tooltip} from 'reactstrap';
+/*eslint no-useless-escape:0*/
+
+import React, { Fragment } from 'react';
+import API from '../.././../service';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, Tooltip, Table} from 'reactstrap';
+import { textFilter } from 'react-bootstrap-table2-filter';
 import MaskedInput from 'react-text-mask';
-import Table from '../../component/Table';
+import TableComp from '../../Table';
 import { ToastContainer, toast } from 'react-toastify';
+import { Loading } from '../../core/Util';
 import { Textbox } from "react-inputs-validation";
+import moment from 'moment-timezone';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css';
+import './permission.css';
+
 
 const pathAPI = 'member';
+let emailFilter;
 
 class Permission extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
+      loadingMember: true,
       dataColumns: [],
       modal: false,
       modalDelete: false,
+      modalView: false,
       input: false,
       inputUsername: true,
       inputEmail: true,
@@ -28,27 +37,34 @@ class Permission extends React.Component {
       tooltipOpenEmail: false,
       tooltipOpenPhone: false,
       tooltipOpenUsername: false,
+      activityRole: {
+        id: '',
+        desc: '',
+        date: '',
+      },
       formData: {
         id: '',
         username: '',
         email: '',
         phone: '',
+        dates: '',
+        create: '',
+        dates_update: '',
+        updated: '',
+        status: {
+          name: '' ,
+          requested: ''
+        },
+        role:'',
       },
       username: '',
       titleModal: '',
+      filterValue: '',
       nameMenu: 'Member',
       submitedType: '',
       headerTablePermission: [{
             dataField: 'username',
             text: 'Username',
-            classes: 'cell-columns',
-            sort: true,
-            sortCaret: (order, column) => {
-              if (!order) return (<span className='sort'>&nbsp;&nbsp;<i className=" fa fa-sort-up" /><i className=" fa fa-sort-down" /></span>);
-              else if (order === 'asc') return (<span className='sort'>&nbsp;&nbsp;&nbsp;<font color="red"><i className=" fa fa-sort-up" /></font><i className=" fa fa-sort-down" /></span>);
-              else if (order === 'desc') return (<span className='sort'>&nbsp;&nbsp;&nbsp;<i className=" fa fa-sort-up" /><font color="red"><i className=" fa fa-sort-down" /></font></span>);
-              return null;
-            },
             style: { fontSize:'14px' },
             headerStyle: (colum, colIndex) => ({ width: '20%', textAlign: 'left' }),
           }, {
@@ -60,6 +76,15 @@ class Permission extends React.Component {
             dataField: 'email',
             text: 'Email',
             style: { fontSize:'14px' },
+            filter: textFilter({
+              style: {display: 'none'},
+              onFilter: filterVal => this.setState({
+                filterValue: filterVal
+              }),
+              getFilter: (filter) => {
+                emailFilter = filter;
+              }
+            }),
             headerStyle: (colum, colIndex) => ({ width: '25%', textAlign: 'left' }),
           }, {
             dataField: 'action',
@@ -138,6 +163,26 @@ class Permission extends React.Component {
       }));
     }
   }
+  toggleView = (title, row) => {
+    if (title === 'view'){
+      this.setState(prevState => ({
+        modalView: !prevState.modal,
+        titleModal: 'View User',
+        formData: row,
+      }));
+    } else {
+      this.setState(prevState => ({
+        modalView: false,
+        titleModal: '',
+        formData: {
+          id: '',
+          username: '',
+          email: '',
+          phone: '',
+        },
+      }));
+    }
+  }
   toggleTooltipUsername = () => {
     this.setState({
       tooltipOpenUsername: !this.state.tooltipOpenUsername
@@ -169,6 +214,19 @@ class Permission extends React.Component {
         this.getData();
         this.toggle();
         this.notifyAdd();
+
+        const date = new Date();        
+        const activity = this.state.activityRole;
+            
+        activity.id = date.getTime();
+        activity.desc = `Added new member ${formData.email} by ${this.props.user.email}(admin)`
+        activity.date = date;
+
+        this.setState({
+                activityRole: activity,
+            }, () => {
+                API.postDataApi('activity', activity)
+            })
       }, () => {
         this.notifyAddError();
       });
@@ -201,7 +259,6 @@ class Permission extends React.Component {
     handleSubmited = () => {
       const { submitedType, formData, inputUsernameChange, inputEmailChange, inputPhoneChange} = this.state;
       if (submitedType === 'add'){
-        console.log("submited")
         if(inputUsernameChange && inputEmailChange && inputPhoneChange === true){
           this.postData();
         } else {
@@ -232,36 +289,55 @@ class Permission extends React.Component {
       }
     }
 
-    notifyAdd = () => toast.success("Data Berhasil Ditambahkan", {
+    notifyAdd = () => toast.success("Data Successfully Added", {
       className:"toastSucces"
     });
-    notifyAddError = () => toast.error("Data Gagal Ditambahkan", {
+    notifyAddError = () => toast.error("Data Failed Added", {
       className:"toastError"
     });
-    notifyEditSuccess = () => toast.success("Data Berhasil Di Ubah", {
+    notifyEditSuccess = () => toast.success("Data is edited", {
       className:"toastSucces"
     });
-    notifyEditError = () => toast.error("Data Gagal Di Ubah", {
+    notifyEditError = () => toast.error("Data failed to edited", {
       className:"toastError"
     });
-    notifyDelete = () => toast.success("Data Berhasil Dihapus", {
+    notifyDelete = () => toast.success("Data deleted", {
       className:"toastSucces"
     });
-    notifyDeleteError = () => toast.error("Data Gagal Dihapus", {
+    notifyDeleteError = () => toast.error("Data failed to delete", {
       className:"toastError"
     });
 
     handleOnChange = (event) => {
-      console.log(event.target.name);
       const formDataNew = { ...this.state.formData };
-      formDataNew[event.target.name] = event.target.value;
+      const timestamp = new Date();
+      if(event.target.name === 'role'){
+        formDataNew.status.name = event.target.value;
+        if(event.target.value === 'Admin'){
+          formDataNew.role = 1
+        } else if(event.target.value === 'Author'){
+          formDataNew.role = 2
+        } else {
+          formDataNew.role = 3
+        }
+      } else {
+        formDataNew[event.target.name] = event.target.value;
+      }
+      formDataNew.dates_update = timestamp;
+      if(this.state.formData.email === this.props.email){
+        formDataNew.updated = `user ( ${this.props.email} )`;
+      } else {
+        formDataNew.updated = `admin ( ${this.props.email} )`;
+      }
+
       if(this.state.submitedType === 'edit'){
         this.setState({
           formData: formDataNew,
         });
       } else {
-        const timestamp = new Date().getTime();
-        formDataNew.id = timestamp;
+        formDataNew.id = timestamp.getTime();
+        formDataNew.dates = timestamp;
+        formDataNew.create = this.props.email;
         this.setState({
           formData: formDataNew,
         });
@@ -269,12 +345,21 @@ class Permission extends React.Component {
     }
 
     buttonAction = (cell,row) => {
-      return (
-        <div>
-          <Button color="default" className="btnEdit" size="sm" onClick={() => this.toggle('edit', row)}><i className=" fa fa-pen" /></Button>
-          <Button color="danger" className="btnDelete" size="sm" onClick={() => this.toggleDelete('delete', row)}><i className=" fa fa-trash" /></Button>
-        </div>
-      )
+      const email = this.props.email
+      // const editDataTrue = member.find(member => member.email === email)
+      return row.email === email ? 
+              <div>
+                <Button color="default" className="btnEdit" size="sm" onClick={() => this.toggle('edit', row)}><i className=" fa fa-pen" /></Button>
+                <Button color="primary" className="btnDelete" size="sm" onClick={() => this.toggleView('view', row)}><i className=" fa fa-eye" /></Button>
+              </div>
+            : this.props.user.role === 1 ?
+              <div>
+                <Button color="default" className="btnEdit" size="sm" onClick={() => this.toggle('edit', row)}><i className=" fa fa-pen" /></Button>
+                <Button color="primary" className="btnViewAdmin" size="sm" onClick={() => this.toggleView('view', row)}><i className=" fa fa-eye" /></Button>                
+                <Button color="danger" className="btnDelete" size="sm" onClick={() => this.toggleDelete('delete', row)}><i className=" fa fa-trash" /></Button>
+              </div>
+            :
+              <Button color="primary" className="btnView" size="sm" onClick={() => this.toggleView('view', row)}><i className=" fa fa-eye" /></Button>
     }
 
     handleOnClickInput = (event) => {
@@ -335,38 +420,64 @@ class Permission extends React.Component {
       }
     }
 
-    resetSearch = () => {
-      console.log('Clicked')
+    btnFilter = (props) => {
+      if(this.state.filterValue){
+        emailFilter('');
+      } else {
+        emailFilter(`${props.email}`);
+      }
     }
 
     componentDidMount() {
-      setTimeout(() => this.getData(), 1000);
+      this.getData();
+      setTimeout(() => this.loading(), 1500);
     }
 
+    loading = () => {
+      this.setState({
+          loadingMember: false
+      })
+  }
+
     render() {
+      const ParsedDateInd = date => date ? moment.utc(date).lang('id').tz('Asia/Jakarta').format('DD MMM YYYY') : '';
       const columns = this.state.headerTablePermission;
       const data = this.state.dataColumns;
+      const role = this.props.user.role;
       const { email } = this.state.formData
       const { lenghtData } = this.state;
+      
+      if(this.state.loadingMember){
+        return (<Loading isLoading={this.state.loadingRole} />)
+      }
+
       return (
         <div>
           <div className="judul"><h3>Member</h3></div>
           <div className="container">
-            <div style={{ margin: '10px' }}>
-              <span />
+            <div>
               <header className="d-flex justify-content-between flex-wrap">
                 <h5 className="lh-ms">
                   {lenghtData} Total Member
                 </h5>
+                {role === 1 ? 
                 <Button
-                  color="info" size="sm"onClick={() => this.toggle('add')} className='buttonadd' >Add New Member</Button>
+                  color="info" size="sm"onClick={() => this.toggle('add')} className='buttonadd' 
+                  >Add New Member</Button>
+                : 
+                <Button
+                  color="info" size="sm"onClick={() => this.btnFilter(this.props)} className='buttonadd' 
+                  >{this.state.filterValue ? 'All Data' : this.props.email}</Button>
+                }
               </header>
-              <Table 
+              <TableComp
                 headerColumns={columns} 
                 dataColumns={data}
                 reset={this.resetSearch}
                 nameMenu={this.state.nameMenu}
                 header={this.state.headerCSV}
+                searchField= "true"
+                role={this.props.user.role}
                 />
             </div>
           </div>
@@ -445,6 +556,18 @@ class Permission extends React.Component {
                     </Tooltip>
                   </div>}
                 </FormGroup>
+                {this.state.titleModal === "Add New Member" ? 
+                  <Fragment>
+                    <Label className="pl-0">Role</Label>
+                    <Input type="select" name='role' onClick={this.handleOnChange}>
+                      <option disabled selected>Select Role</option>
+                      <option>Default</option>
+                      <option>Author</option>
+                      <option>Admin</option>
+                    </Input>
+                  </Fragment>
+                  : ''
+                }
               </Form>
             </ModalBody>
             <ModalFooter>
@@ -467,10 +590,58 @@ class Permission extends React.Component {
             </ModalFooter>
           </Modal>
 
+          {/* Modal View */}
+          <Modal isOpen={this.state.modalView} toggle={this.toggleView} className={this.props.className}>
+            <ModalHeader toggle={this.toggleView} title="Add New Member">{this.state.titleModal}</ModalHeader>
+            <ModalBody>
+              <br />
+              <Table borderless>
+                <tbody>
+                  <tr>
+                    <th>Username</th>
+                    <td>{this.state.formData.username}</td>
+                  </tr>
+                  <tr>
+                    <th>Email</th>
+                    <td>{this.state.formData.email}</td>
+                  </tr>
+                  <tr>
+                    <th>Phone</th>
+                    <td>{this.state.formData.phone}</td>
+                  </tr>
+                  <tr>
+                    <th>Create date</th>
+                    <td>{ParsedDateInd(this.state.formData.dates)}</td>
+                  </tr>
+                  <tr>
+                    <th>Create by</th>
+                    <td>{this.state.formData.create}</td>
+                  </tr>
+                  {this.state.formData.dates_update ? 
+                  <Fragment>
+                      <tr>
+                        <th>Last update date</th>
+                        <td>{this.state.formData.dates_update}</td>
+                      </tr>
+                      <tr>
+                        <th>Update by</th>
+                        <td>{this.state.formData.updated}</td>
+                      </tr>
+                  </Fragment>
+                  :
+                   <th style={{color:'blue'}}>this is new member</th>
+                  }
+                </tbody>
+              </Table>
+              <hr />
+            </ModalBody>
+          </Modal>
+
           <ToastContainer
             position="top-right"
             autoClose={4000}
             newestOnTop={false}
+            hideProgressBar
             closeOnClick
             rtl={false}
             pauseOnVisibilityChange

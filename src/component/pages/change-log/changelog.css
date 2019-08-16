@@ -1,0 +1,208 @@
+.public-DraftEditor-content{
+    height: 90px !important;
+    padding-left: 10px;
+}
+
+.public-DraftStyleDefault-ltr > span > span{
+    max-width: 750px !important;
+}
+
+.DraftEditor-root{
+    z-index: 0;
+}
+
+.container{
+    background-color: white;
+    max-width: 90%;
+    margin-top: 30px;
+    display: block;
+    padding: 22px;
+}
+
+#tooltip-top > .tooltip-inner {
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #062e56;
+  }
+  
+  #tooltip-top > .tooltip-arrow {
+    border-top: 5px solid #062e56;
+  }
+
+.btnEdit{
+    border-radius: 6px 0 0px 6px;
+}
+
+.editorbox{
+    border-style: solid;
+    border-color: #d4d4d4;
+    border-width: 1px;
+    border-radius: 4px !important;
+}
+
+.editorbox.error{
+    border-color: red;
+}
+
+.dropdownbutton{
+    background-color:'white';
+    font-size: 14px;
+    border-color: #d0d0d0;
+    background-color: #f5f5f5;
+    color: #495057;
+    border-radius: 4px !important;
+}
+
+.dropdownbuttonError{
+    background-color:'white';
+    font-size: 14px;
+    border-color: red;
+    background-color: #f5f5f5;
+    color: #495057;
+    border-radius: 4px !important;
+}
+
+.inputdate{
+    background-color:'white';
+    border-color: #d0d0d0;
+    border-style: solid;
+    border-width: 1px;
+    padding: 6px;
+    padding-left: 11px;
+    font-size: 14px;
+    border-radius: 4px !important;
+}
+
+.inputdateError{
+    background-color:'white';
+    border-color: red;
+    border-style: solid;
+    border-width: 1px;
+    padding: 6px;
+    padding-left: 11px;
+    font-size: 14px;
+    border-radius: 4px !important;
+}
+
+.labelform{
+    font-size: 14px;
+    color: #495057;
+    display: flex;
+}
+
+.inputField.error{
+    border-color: red;
+    position: relative;
+}
+
+.inputField.error:focus{
+    border-color: #ced4da;
+    position: relative;    
+}
+
+.attention{
+    float: right;
+    font-size: 12px;
+    color: red;
+}
+
+.iconErrorUsername{
+    color: red;
+    position: absolute;
+    top: 59px;
+    right: 30px;
+}
+
+.iconErrorEmail{
+    color: red;
+    position: absolute;
+    top: 145px;
+    right: 30px;
+}
+
+.iconErrorPhone{
+    color: red;
+    position: absolute;
+    top: 231px;
+    right: 30px;
+}
+
+.iconErrorType{
+    color: red;
+    position: absolute;
+    top: 55px;
+    margin-left: 10px;
+}
+
+.iconErrorDate{
+    color: red;
+    position: absolute;
+    top: 134px;
+    margin-left: 10px;
+}
+
+.iconErrorDesc{
+    color: red;
+    position: absolute;
+    top: 216px;
+    right: 29px;
+}
+
+.toastSucces{
+    background-color: hsl(108, 99%, 32%) !important;
+    padding-left: 20px !important;
+    border-radius: 6px !important;
+    margin-top: 50px !important;
+}
+
+.toastError{
+    padding-left: 20px !important;
+    border-radius: 6px !important;
+    margin-top: 50px !important;
+}
+
+.btnDelete{
+    border-radius: 0 6px 6px 0;
+}
+
+.buttonadd{
+    float: 'right';
+    text-align: 'right';
+    margin: '10px';
+}
+.inputField{
+    display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.judul{
+    padding-left: 57px;
+    margin-top: 40px;
+}
+
+.cell-columns{
+    white-space: nowrap;
+    overflow: auto;
+    text-overflow: ellipsis;
+    max-width: 40ch;
+}
+
+.deleteModal{
+    white-space: nowrap;
+    overflow: auto;
+    text-overflow: ellipsis;
+    max-width: 51ch;
+}
+
+.sort{
+    font-size: 11px;
+}

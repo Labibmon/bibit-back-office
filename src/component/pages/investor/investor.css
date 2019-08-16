@@ -1,0 +1,12 @@
+.container{
+    background-color: white;
+    max-width: 90%;
+    margin-top: 30px;
+    display: block;
+    padding: 22px;
+}
+
+.judul{
+    padding-left: 57px;
+    margin-top: 40px;
+}
